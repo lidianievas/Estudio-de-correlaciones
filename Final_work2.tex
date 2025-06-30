@@ -1,0 +1,512 @@
+\documentclass[11pt]{article}\usepackage[]{graphicx}\usepackage[]{xcolor}
+% maxwidth is the original width if it is less than linewidth
+% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlsng}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hldef}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{lmodern}
+\usepackage{titlesec}
+\usepackage{amsmath}
+\usepackage{url}
+\usepackage{tikz}
+\usepackage{datetime}
+\usepackage{geometry}
+\usepackage{fontawesome}
+\geometry{margin=2.5cm}
+
+\newcommand{\pbox}[1]{\vskip 0.2cm \fbox{\parbox{0.99\linewidth}{\color{blue}{#1}}} \vskip 0.2cm}
+\renewcommand{\familydefault}{\sfdefault}
+
+
+% Page settings
+\textwidth 16cm
+\evensidemargin 0.2cm
+\oddsidemargin  0.2cm
+\topmargin -0.2cm
+\textheight 22cm
+
+\parindent=0in
+\parskip=4pt
+\renewcommand{\baselinestretch}{1.3}
+
+% Title
+\title{\Huge \textbf{Computational Statistics} \\[10pt]
+       \Large Course Worksheet}
+\author{ Natalia De Vega Suárez Bárcena \\
+         Alba Diez Santos\\
+         Lidia Nievas Dueñas\\
+         Gonzalo Romero Gallego}
+\date{\today}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+\begin{titlepage}
+  \thispagestyle{empty}
+  \begin{tikzpicture}[remember picture, overlay]
+    \node[anchor=north west, inner sep=0pt] at (current page.north west) {
+      \includegraphics[width=\paperwidth,height=\paperheight]{portada-ugr-color.pdf}
+    };
+
+    \node[align=center] at (current page.center) {
+      \begin{minipage}{0.8\textwidth}
+        \Huge \textbf{Analysis of Song Popularity \\ Based on Spotify and YouTube Data} \\[1cm]
+        \Large Natalia De Vega Suárez Bárcena\\ 
+        Alba Diez Santos\\ 
+        Lidia Nievas Dueñas\\ 
+        Gonzalo Romero Gallego \\[1cm]
+        \large Granada, \today
+      \end{minipage}
+    };
+  \end{tikzpicture}
+\end{titlepage}
+
+
+
+\tableofcontents
+\newpage
+
+\section{Introduction}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Este chunk se usa para definir opciones globales del resto de chunks
+%% en este documento. Aqui incluimos algunas pero se pueden modificar, eliminar
+%% o añadir otras
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Our first task was to find a dataset to analyse, in our case we have chosen one based on songs of various artist in the world, since all the members of the group like different type of music and love discovering new songs. Our objective is to establish a model that let us define which variables could explain the popularity of the songs. Thanks to the contents of the course we are able to make this study. 
+
+We are going to start by describing the dataset in the following section, so we can understand the results we will obtain. In this part we will also study if there is possible linear relationship between the response (popularity) and the covariates and if there is possible co-linearity among covariates. 
+
+Then we will provide the mathematical formulation of the chosen model, explaining everything of it and including the assumptions to be made. 
+
+The next step will be to make a statistical analysis, that is describing the goodness of the fit, making inference related to the model and possible simplification of it.
+
+To finalize, we will make conclusions of the results we have obtained in the previous section. The idea is to summarize the analysis performed and highlight the most relevant results. We will also write about the limitations of our analysis and suggest possible improvements or extensions.
+
+To do all of this, we rely on information found in some books about R~\cite{book1},specifically about about regression~\cite{book2} and other statistical methods~\cite{book3}.
+
+
+\newpage
+
+\section{The dataset}
+As we have mentioned, our dataset is about music. We got it from Kaggle~\cite{Dataset} (one of the link provided for the coursework to download datasets).
+It contains songs of different artists in the world, and for each one is present:\\
+ - Several Spotify statistic, including the amount of streams.\\
+ - Number of views and likes of the official music video on YouTube.\\
+
+Firstly we are going to visualize the variables: 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{spotyout}\hlkwb{<-} \hlkwd{read.csv}\hldef{(}\hlsng{"Spotify_Youtube.csv"}\hldef{,} \hlkwc{as.is}\hldef{=}\hlnum{TRUE}\hldef{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+The dataset contains 26 variables for each song collected from Spotify and YouTube. These include:
+
+\textbf{Track, Artist, Album, Album type}: Basic song and album info.
+
+\textbf{Url spotify, Uri}: Links to the song/artist on Spotify.
+
+\textbf{Danceability, Energy, Valence, Tempo}: Musical features (e.g., mood, pace, rhythm).
+
+\textbf{Key, Loudness, Speechiness, Acousticness, Instrumentalness, Liveness}: Audio attributes describing sound quality, vocals, live performance, etc.
+
+\textbf{Duration ms}: Track length in milliseconds.
+
+\textbf{Stream}: Number of Spotify streams.
+
+\textbf{Url youtube, Title, Channel}: YouTube video info.
+
+\textbf{Views, Likes, Comments}: Video engagement metrics.
+
+\textbf{Description}: Video description on YouTube.
+
+\textbf{Licensed}: Whether the video is officially licensed.
+
+\textbf{Official video}: Indicates if it's the official video of the song.
+
+As we don't have a parameter explaining the popularity, for us it makes sense to establish that the popularity of a song is based on the likes it has, so we are going to reformulate the question we want to answer: how do the variables involved in the dataset contribute on the likes of a song?.  
+
+To answer this question, we begin by working only with singles. We made this decision because it makes more sense to compare the number of views or likes for singles, as in the case of albums, one track may become significantly more popular than the rest. This can lead listeners to focus on just that one song and overlook the others. In contrast, when an artist releases a single, all the attention is typically concentrated on that individual track. 
+
+We are also going to remove the variable X, which is simply a song identifier. Since it does not contain any meaningful information related to the number of views, it is not useful for explaining or predicting the response variable.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{spotyout}\hlkwb{<-} \hlkwd{subset}\hldef{(spotyout, Album_type}\hlopt{==}\hlsng{"single"}\hldef{)}
+\hldef{spotyout}\hlkwb{<-} \hlkwd{subset}\hldef{(spotyout,} \hlkwc{select} \hldef{=} \hlopt{-}\hlkwd{c}\hldef{(Album_type,X,Key) )}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+After visualizing the plot that displays the relationships between all variables (we do not include it here because it is too large due to the presence of 27 variables), we can make the following observations:\\
+ - There may be a potential linear relationship between the response variable (Likes) and some of the covariates (which we will later select). \\
+ - There appears to be some multicollinearity among the covariates, meaning that certain variables are highly correlated and could be redundant. In such cases, we may consider removing them.\\
+ 
+From the plot, we observe that indeed Likes might show a linear dependence on some of the other variables. This motivates our decision to use a multiple linear regression model.
+As a first step, we restrict the analysis to numeric variables only.
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{numerics} \hlkwb{<-} \hldef{spotyout[}\hlkwd{sapply}\hldef{(spotyout, is.numeric)]}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+Then, we can remove the variables which are highly correlated between them. Let us study this by calculating the pairwise Pearson coefficients, and focus on couples with absolute value higher than 0.5: 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{#Pearson coefficient between each variable}
+\hldef{cor_mat} \hlkwb{<-} \hlkwd{cor}\hldef{(numerics,} \hlkwc{use} \hldef{=} \hlsng{"complete.obs"}\hldef{)}
+\hlcom{# We search the ones near to 1}
+\hldef{indices} \hlkwb{<-} \hlkwd{which}\hldef{(}\hlkwd{abs}\hldef{(cor_mat)} \hlopt{>} \hlnum{0.5} \hlopt{&} \hlkwd{abs}\hldef{(cor_mat)} \hlopt{<} \hlnum{1} \hlopt{&}
+                   \hlkwd{upper.tri}\hldef{(cor_mat),} \hlkwc{arr.ind} \hldef{=} \hlnum{TRUE}\hldef{)}
+\hlkwa{for} \hldef{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlkwd{nrow}\hldef{(indices)) \{}
+ \hldef{var1} \hlkwb{<-} \hlkwd{rownames}\hldef{(cor_mat)[indices[i,} \hlnum{1}\hldef{]]}
+ \hldef{var2} \hlkwb{<-} \hlkwd{colnames}\hldef{(cor_mat)[indices[i,} \hlnum{2}\hldef{]]}
+ \hldef{r} \hlkwb{<-} \hldef{cor_mat[indices[i,} \hlnum{1}\hldef{], indices[i,} \hlnum{2}\hldef{]]}
+  \hlkwd{cat}\hldef{(}\hlkwd{sprintf}\hldef{(}\hlsng{"%s ~ %s = %.2f\textbackslash{}n"}\hldef{, var1, var2, r))}
+ \hldef{\}}
+\end{alltt}
+\begin{verbatim}
+## Energy ~ Loudness = 0.73
+## Energy ~ Acousticness = -0.60
+## Views ~ Likes = 0.89
+## Views ~ Comments = 0.64
+## Likes ~ Comments = 0.75
+## Views ~ Stream = 0.53
+## Likes ~ Stream = 0.57
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+Energy is highly correlated with Loudness, and a little less with Acousticness, too. This lead us to decide on removing it. Thus, the dataset would be :
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{dataset}\hlkwb{<-} \hlkwd{subset}\hldef{(numerics,} \hlkwc{select} \hldef{=} \hlopt{-}\hldef{Energy)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+
+Now we can visualize the scatter plot :
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{plot}\hldef{(dataset)}
+\end{alltt}
+\end{kframe}
+
+{\centering \includegraphics[width=0.75\linewidth]{figure/chunk6-1} 
+
+}
+
+
+\end{knitrout}
+
+
+\newpage
+\section{The model}
+
+We proceed to provide the mathematical formulation of the choosen model. As we announced, it will be a multilinear regression model of the type : 
+
+\begin{equation}
+Y_i = \beta_0 + x_{i1}\beta_1 + x_{i2}\beta_2 + \cdots + x_{ik}\beta_k + \varepsilon_i, \quad i = 1, \dots, n
+\end{equation}
+
+where $\varepsilon_i \sim \mathcal{N}(0, \sigma^2)$ are independent random errors. \\
+In our case, the response variable is \textbf{Likes} , and the $k = 12$ covariates are : \textit{Danceability}, \textit{Loudness}, \textit{Speechiness}, \textit{Acousticness}, \textit{Instrumentalness}, \textit{Liveness}, \textit{Valence}, \textit{Tempo}, \textit{Duration\_ms}, \textit{Views}, \textit{Comments}, \textit{Stream}. 
+
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{lmlikes} \hlkwb{<-} \hlkwd{lm}\hldef{(Likes}\hlopt{~}\hldef{Danceability}\hlopt{+}\hldef{Loudness}\hlopt{+} \hldef{Speechiness}\hlopt{+}\hldef{Acousticness}\hlopt{+}
+                \hldef{Instrumentalness}\hlopt{+}\hldef{Liveness}\hlopt{+}\hldef{Valence}\hlopt{+}\hldef{Tempo}\hlopt{+}\hldef{Duration_ms}\hlopt{+}
+                \hldef{Views}\hlopt{+}\hldef{Comments}\hlopt{+}\hldef{Stream ,dataset)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+$ \text{Likes} = 8.889\times10^4 + 1.599\times 10^5 x_1 + 5.999\times 10^3 x_2 +
+1.913\times 10^5 x_3 + 1.423\times 10^5 x_4 - 7.322 \times 10^4 x_5 -4.374\times
+10^4 x_6 -2.133 \times 10^5 x_7 - 1.880 \times 10^2 x_8 + 1.499 \times 10^{-2}x_9+
+4.494\times 10^3 x_{10} + 4.306\times x_{11} + 1.479\times 10^3 x_{12} $
+
+
+with $x_1, \dots, x_{12}$ the covariates we have previously mentioned respectively .
+
+\section{Statistical analysis}
+
+Above we have fitted the model to the data. However we need to measure how well it actually describes the information, this is, the goodness of fit.
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{summary}\hldef{(lmlikes)}
+\end{alltt}
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = Likes ~ Danceability + Loudness + Speechiness + 
+##     Acousticness + Instrumentalness + Liveness + Valence + Tempo + 
+##     Duration_ms + Views + Comments + Stream, data = dataset)
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -18195199   -138802    -53586     32258  10973812 
+## 
+## Coefficients:
+##                    Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)       8.889e+04  8.347e+04   1.065  0.28699    
+## Danceability      1.599e+05  7.965e+04   2.008  0.04474 *  
+## Loudness          5.999e+03  3.760e+03   1.596  0.11066    
+## Speechiness       1.913e+05  1.057e+05   1.809  0.07050 .  
+## Acousticness      1.423e+05  4.425e+04   3.216  0.00131 ** 
+## Instrumentalness -7.322e+04  6.729e+04  -1.088  0.27661    
+## Liveness         -4.374e+04  6.399e+04  -0.684  0.49429    
+## Valence          -2.133e+05  4.920e+04  -4.337 1.48e-05 ***
+## Tempo            -1.880e+02  3.649e+02  -0.515  0.60642    
+## Duration_ms       1.499e-02  1.009e-01   0.149  0.88183    
+## Views             4.494e-03  5.885e-05  76.363  < 2e-16 ***
+## Comments          4.306e+00  9.366e-02  45.975  < 2e-16 ***
+## Stream            1.479e-03  5.838e-05  25.337  < 2e-16 ***
+## ---
+## Signif. codes:  
+## 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 673500 on 4676 degrees of freedom
+##   (315 observations deleted due to missingness)
+## Multiple R-squared:  0.8702,	Adjusted R-squared:  0.8699 
+## F-statistic:  2613 on 12 and 4676 DF,  p-value: < 2.2e-16
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+The adjusted percentage (\textit{Adjusted R-squared}) of variance of the response explained by the covariates through the model is 86.99\%. As we now, the actual value (\textit{Multiple R-squared}) may be quite inflated, but in our case they are practically the same. This  all means it is really a good model. 
+Apart from the goodness of fit, we are showing some results related to the inference techniques performed on the model (after its fitting).
+\subsection{Inference on the model}
+\subsubsection{Regression test: overall significance of the model}
+As a first step, we check the answers given on the reasonableness of the model itself (even though we already have some ideas). The regression test formulates this null hypothesis: 
+$ H_0 : \beta_1 = \beta_2 = .. = \beta_{12} = 0 $
+that is, the 12 covariates do not have any effect. We look at the value of the test statistic F = 2613, and the corresponding p-value, that is approximately 0. The conclusion is to reject the null hypothesis, therefore the set of covariates we are considering can be used to explain the response (they are not all null).
+
+\subsubsection{Testing the effect of just one covariate: individual significance}
+Now we want to know if we can drop just one covariate, this means to get rid of some of the variables which have less influence on the response. This will be important if we want to reduce the dimensions of the model. To deduce it, we set the following hypothesis test: 
+$ H_0 : \beta_j = 0 \quad  vs \quad  H_1 : \beta_j \neq 0 $ .
+Considering a significance level of 0.05 we would have to reject the null hypothesis for all the covariates except for Loudness,  Speecheness, Instrumentalness, Liveness, Tempo and Duration. We are not taking any final decission, but this suggests us that these variables may not be needed to explain the response.
+
+\subsubsection{Testing the significance of the intercept $\beta_0$}
+When defining the model we have included an intercept $\beta_0$ and we want to check if it is correct to include this parameter. We contrast now: $ H_0 : \beta_0 = 0 \quad vs \quad H_1 :  \beta_0 \neq 0 $.
+In this case, considering again a significance level of 0.05, we can not reject the null hypothesis, since the p-value (0.28699) is not lower. This information leads us to think of removing it.
+
+\subsection{Regression diagnostics: residual analysis}
+We have concluded that the model could be simplified because some covariates seem to have very little effect on the popularity (Likes). However, the estimation and inference results supporting those conclusions rely on several assumptions that we have not evaluated yet.
+
+\subsubsection{Constant variance assumption}
+We have assumed that errors are normally distributed, are independent and have equal (constant) variance.
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{residualslikes} \hlkwb{<-} \hlkwd{rstandard}\hldef{(lmlikes)}
+\hldef{fittedvalueslikes} \hlkwb{<-} \hlkwd{fitted.values}\hldef{(lmlikes)}
+\hlkwd{plot}\hldef{(fittedvalueslikes, residualslikes,} \hlkwc{xlab}\hldef{=}\hlsng{"Fitted values (likes)"}\hldef{,}
+     \hlkwc{ylab}\hldef{=}\hlsng{"Residuals"}\hldef{)}
+\hlkwd{abline}\hldef{(}\hlkwc{h}\hldef{=}\hlnum{0}\hldef{,} \hlkwc{col} \hldef{=} \hlsng{'red'}\hldef{)}
+\end{alltt}
+\end{kframe}
+
+{\centering \includegraphics[width=0.4\linewidth]{figure/chunk9-1} 
+
+}
+
+
+\end{knitrout}
+The residuals appear to be randomly scattered around zero, suggesting that the assumption of constant variance is reasonably satisfied. Residuals that lie far from the zero line or stand out from the overall pattern may indicate the presence of outliers.
+
+\subsubsection{Independence assumption}
+We have also assumed that the conditional mean of the response is a linear function of the covariates.
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{library}\hldef{(lmtest)}
+\hlkwd{plot}\hldef{(}\hlnum{1}\hlopt{:}\hlkwd{length}\hldef{(residualslikes), residualslikes,}
+     \hlkwc{xlab} \hldef{=} \hlsng{"Observation number"}\hldef{,}
+     \hlkwc{ylab} \hldef{=} \hlsng{"Standardized residuals"}\hldef{,}
+     \hlkwc{main} \hldef{=} \hlsng{"Standardized residuals vs Observation index"}\hldef{)}
+\hlkwd{abline}\hldef{(}\hlkwc{h} \hldef{=} \hlnum{0}\hldef{,} \hlkwc{col} \hldef{=} \hlsng{"red"}\hldef{,} \hlkwc{lty} \hldef{=} \hlnum{2}\hldef{)}
+\hlkwd{dwtest}\hldef{(lmlikes)}
+\end{alltt}
+\begin{verbatim}
+## 
+## 	Durbin-Watson test
+## 
+## data:  lmlikes
+## DW = 1.7038, p-value < 2.2e-16
+## alternative hypothesis: true autocorrelation is greater than 0
+\end{verbatim}
+\end{kframe}
+
+{\centering \includegraphics[width=0.4\linewidth]{figure/chunk10-1} 
+
+}
+
+
+\end{knitrout}
+In the plot of standardized residuals versus the observation index, most residuals appear randomly scattered around zero, forming a horizontal band centered at zero. This supports the assumption of constant variance. However, a few points lie far from this band, indicating the presence of potential outliers. The Durbin-Watson statistic is 1.70 with a very small p-value, indicating significant positive autocorrelation in the residuals.
+
+\subsubsection{Normality assumption}
+We want to verify the normality of the residuals.
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{ks.test}\hldef{(residualslikes ,}\hlsng{"pnorm"}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## 
+## 	Asymptotic one-sample Kolmogorov-Smirnov test
+## 
+## data:  residualslikes
+## D = 0.26305, p-value < 2.2e-16
+## alternative hypothesis: two-sided
+\end{verbatim}
+\begin{alltt}
+\hlkwd{qqnorm}\hldef{(residualslikes)}
+\hlkwd{qqline}\hldef{(residualslikes)}
+\end{alltt}
+\end{kframe}
+
+{\centering \includegraphics[width=0.4\linewidth]{figure/chunk11-1} 
+
+}
+
+
+\end{knitrout}
+The Kolmogorov-Smirnov test suggests that the residuals are not normally distributed (p-value less than 2.2e-16), and the Q-Q plot shows departures from the reference line, especially in the tails. This indicates a violation of the normality assumption.
+
+\subsubsection{Unusual observation}
+As we have already said, the model is not bad but it does not work for the outliers. So our suggestion is to repeat the model without the outliers :
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{outliers}\hlkwb{<-}\hlkwd{which}\hldef{(}\hlkwd{abs}\hldef{(residualslikes)} \hlopt{>} \hlnum{3}\hldef{);}
+\hldef{dataset2} \hlkwb{<-} \hldef{dataset[}\hlopt{-}\hlkwd{c}\hldef{(outliers), ]}
+\hldef{lmlikes2} \hlkwb{<-} \hlkwd{lm}\hldef{(Likes}\hlopt{~}\hldef{Danceability}\hlopt{+}\hldef{Loudness}\hlopt{+} \hldef{Speechiness}
+               \hlopt{+}\hldef{Acousticness}\hlopt{+}\hldef{Instrumentalness}\hlopt{+}\hldef{Liveness}\hlopt{+}\hldef{Valence}\hlopt{+}\hldef{Tempo}\hlopt{+}
+                 \hldef{Duration_ms} \hlopt{+} \hldef{Views}\hlopt{+}\hldef{Comments}\hlopt{+}\hldef{Stream, dataset2)}
+\hlkwd{summary}\hldef{(lmlikes2)}
+\end{alltt}
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = Likes ~ Danceability + Loudness + Speechiness + 
+##     Acousticness + Instrumentalness + Liveness + Valence + Tempo + 
+##     Duration_ms + Views + Comments + Stream, data = dataset2)
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -18085631   -136043    -56756     29763  11082927 
+## 
+## Coefficients:
+##                    Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)       7.565e+04  8.061e+04   0.938  0.34805    
+## Danceability      1.901e+05  7.696e+04   2.469  0.01357 *  
+## Loudness          6.129e+03  3.632e+03   1.687  0.09158 .  
+## Speechiness       2.025e+05  1.018e+05   1.989  0.04671 *  
+## Acousticness      1.206e+05  4.272e+04   2.823  0.00477 ** 
+## Instrumentalness -6.180e+04  6.499e+04  -0.951  0.34172    
+## Liveness         -3.126e+04  6.163e+04  -0.507  0.61199    
+## Valence          -2.131e+05  4.750e+04  -4.487  7.4e-06 ***
+## Tempo            -2.246e+02  3.518e+02  -0.638  0.52327    
+## Duration_ms       3.386e-02  9.682e-02   0.350  0.72652    
+## Views             4.551e-03  5.798e-05  78.487  < 2e-16 ***
+## Comments          4.238e+00  9.693e-02  43.721  < 2e-16 ***
+## Stream            1.410e-03  5.746e-05  24.540  < 2e-16 ***
+## ---
+## Signif. codes:  
+## 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 644700 on 4594 degrees of freedom
+##   (314 observations deleted due to missingness)
+## Multiple R-squared:  0.8732,	Adjusted R-squared:  0.8729 
+## F-statistic:  2637 on 12 and 4594 DF,  p-value: < 2.2e-16
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+We get a higher adjusted and multiple R-squared, which aligns with our thinking.
+
+\newpage
+\section{Conclusions}
+Nowadays, many years after the invention and globalization of the Internet, music is more accessible than ever for everyone. Very often, as with any other type of art, people identify and gets attached with some particular band, singer or gender. Nevertheless, there will always be certain songs that happen to seduce almost every kind of ear, and possibly many persons around you know them.
+
+But how do they do it? Where does this success come from? Is it measurable? If so, on what does it depend? Are these factors measurable too? Some of these were the questions we made to ourselves at the beginning of this coursework, when we decided to focus it on music. In our try to solve these problems, we could not do other thing than using the statistics tools we have learned, and make conclusions under some confidence level (as always in inference).
+
+At first, we looked for a good dataset, that adjusted to our needs and approach. The one we selected, presented on the first part, satisfied our requirements. It includes mainly numeric variables, some of them seem to be pretty related with global popularity of songs (such as likes, views or streams), and others are closer to purely music properties of the songs (which could be also relevant). Then we also preformed some modifications on the data, since we were going to work only with numeric values and singles (in order to balance the scenario).
+
+After that, we continued evaluating our problem during section 2, and the path we chose was to fit a model which could explain the popularity, represented by the likes of the song, with the information on the rest of the variables (we could have also chosen views or streams). The next step was to decide on which kind of model we were going to use, and the observation of the scatter plots led us to try a multilinear one.
+
+We fitted and showed the model (on part 3), but we needed to evaluate the accuracy of it. We performed this task by testing the data on many hypothesis about the model (throughout the last section). The results were successful but not perfect, in the way they showed that the choice was finely adjusted but some assumptions were not satisfied by the data. Finally, as a consequence of this information, we proposed how the model (by removing variables) and the data (by removing outliers) could be optimized to find even a better fit that fulfills the rest of the requirements for a multilinear model.
+
+As we have shown, popularity of music can actually be measured and predicted. There may be other better models to study it, but a simple linear one is enough to get conclusions. Since music is everywhere nowadays, the industry that manages its distribution is growing day by day, resulting in songs actually getting closer to marketing than art. If streams or views can be bought (and they can) we have a formula for making a song popular (that can depend on other musical features such as danceability or acousticness), and then there is actually a formula for making money (in form of songs). 
+
+The big record labels know this and are taking advantage of it (they surely update this research constantly). This is the most important reason why people today fight or argue about big pop stars not deserving their commercial success (that may not be so licit), while little artist can not get any recognition or fame, unless they follow that magic formula.
+
+
+\section{References}
+\bibliographystyle{plain}
+\begin{small}
+\bibliography{library}
+\end{small}
+
+\end{document}
