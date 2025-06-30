@@ -8,7 +8,7 @@ El objetivo principal es aplicar modelos de regresión lineal y/o generalizados 
 
 ## 🧾 Contenido
 
-- [`Group_coursework.pdf`](Final_work2-compressed.pdf): Enunciado oficial del trabajo (con estructura, objetivos y criterios de evaluación).
+- [`Group_coursework.pdf`](Final_work2-compressed.pdf): Trabajo final realizado.
 
 Próximamente se incluirán:
 - 📄 El informe en PDF generado con `RMarkdown`
