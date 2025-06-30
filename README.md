@@ -1,4 +1,4 @@
-#Trabajo de Estadística Computacional 📊
+## Trabajo de Estadística Computacional 📊
 
 📅 Curso 2024-2025 — Grado en Matemáticas  
 📁 Proyecto en grupo
